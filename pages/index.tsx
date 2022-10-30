@@ -20,7 +20,7 @@ export default function Home() {
             ease: [0, 0.71, 0.2, 1.01],
           }}
         >
-          Tyler Prill
+          Come on Gillow.
         </motion.h1>
         <motion.p
           className={"text-2xl font-bold"}
@@ -32,7 +32,7 @@ export default function Home() {
             ease: [0, 0.71, 0.2, 1.01],
           }}
         >
-          Software Engineer
+          Just one game of league, it will be ok.
         </motion.p>
       </main>
     </div>
