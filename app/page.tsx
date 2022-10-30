@@ -11,7 +11,6 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        Testing
         <Content>
           <Leaf></Leaf>
         </Content>

@@ -6,7 +6,7 @@ export default function RootLayout({
   return (
     <html>
       <head></head>
-      <body>Testing Root SSR {children}</body>
+      <body>{children}</body>
     </html>
   );
 }

@@ -5,8 +5,6 @@ import { motion } from "framer-motion";
 export default function Content({ children = <></> }) {
   return (
     <>
-      <br></br>
-      Client Side Parent
       <motion.h1
         className={"text-3xl font-bold "}
         initial={{ opacity: 0, scale: 0.5 }}
@@ -17,7 +15,7 @@ export default function Content({ children = <></> }) {
           ease: [0, 0.71, 0.2, 1.01],
         }}
       >
-        Framer Motion
+        Come On Gillow
       </motion.h1>
       <motion.p
         className={"text-2xl font-bold"}
@@ -29,7 +27,7 @@ export default function Content({ children = <></> }) {
           ease: [0, 0.71, 0.2, 1.01],
         }}
       >
-        Animations
+        Dont be dumb lets play league.
       </motion.p>
       {children}
     </>
