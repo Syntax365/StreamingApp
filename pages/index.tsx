@@ -1,6 +1,7 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import { motion } from "framer-motion";
+import Form from "../components/Form";
 
 export default function Home() {
   return (
@@ -20,7 +21,7 @@ export default function Home() {
             ease: [0, 0.71, 0.2, 1.01],
           }}
         >
-          Come on Gillow.
+          Why did the transgener man only eat salad?
         </motion.h1>
         <motion.p
           className={"text-2xl font-bold"}
@@ -32,8 +33,9 @@ export default function Home() {
             ease: [0, 0.71, 0.2, 1.01],
           }}
         >
-          Just one game of league, it will be ok.
+          Because he was a her before.
         </motion.p>
+        {/* <Form></Form> */}
       </main>
     </div>
   );
