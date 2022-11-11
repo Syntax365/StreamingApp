@@ -21,7 +21,7 @@ export default function Home() {
             ease: [0, 0.71, 0.2, 1.01],
           }}
         >
-          Why did the transgener man only eat salad?
+          Testing bundle size
         </motion.h1>
         <motion.p
           className={"text-2xl font-bold"}
@@ -33,7 +33,7 @@ export default function Home() {
             ease: [0, 0.71, 0.2, 1.01],
           }}
         >
-          Because he was a her before.
+          Testing Emotion Library
         </motion.p>
         {/* <Form></Form> */}
       </main>
