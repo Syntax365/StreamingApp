@@ -1,4 +1,4 @@
-import { createReadStream, writeFileSync, unlinkSync } from "fs";
+import { createWriteStream, writeFileSync, unlinkSync } from "fs";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 
 export default async function handler(hash: string, imageBase64: string) {
@@ -13,17 +13,12 @@ export default async function handler(hash: string, imageBase64: string) {
   });
 
   const buffer = Buffer.from(imageBase64, "base64");
-  writeFileSync(filePath, buffer);
 
   const uploadCommand = new PutObjectCommand({
     Bucket: process.env.S3_BUCKET_NAME,
     Key: filePath,
-    Body: createReadStream(filePath),
+    Body: buffer,
   });
 
-  const response = await s3Client.send(uploadCommand);
-
-  unlinkSync(filePath);
-
-  return response;
+  return await s3Client.send(uploadCommand);
 }
