@@ -1,4 +1,3 @@
-import { createWriteStream, writeFileSync, unlinkSync } from "fs";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 
 export default async function handler(hash: string, imageBase64: string) {
