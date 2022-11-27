@@ -1,5 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
+import s3 from "../../helpers/s3client";
 
 type Data = {
   imageURL: string;
@@ -31,12 +32,10 @@ const generateImage = async (res: NextApiResponse<Data>) => {
   });
 
   const imageBase64 = imageData.data.data[0].b64_json as any;
-  const buffer = Buffer.from(imageBase64, "base64");
   const hash = await getImageHash(imageBase64);
+  const test = await s3(hash, imageBase64);
 
-  fs.writeFileSync(`./public/images/${hash}.png`, buffer);
-
-  const response = { imageURL: `/images/${hash}.png` };
+  const response = { imageURL: `${process.env.S3_BUCKET_BASE_URL}${hash}.png` };
 
   res.status(200).json(response);
 };
