@@ -21,7 +21,7 @@ export default function Home() {
             ease: [0, 0.71, 0.2, 1.01],
           }}
         >
-          Recently Generated Images
+          Recently Developed Images
         </motion.h1>
         {/* <motion.p
           className={"text-2xl font-bold"}
