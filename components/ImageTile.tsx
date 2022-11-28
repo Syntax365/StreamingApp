@@ -39,10 +39,10 @@ export default function ImageTile() {
   };
 
   return (
-    <div className="container">
+    <>
       <div className="w-full flex justify-center flex-wrap">
         {generateImages()}
       </div>
-    </div>
+    </>
   );
 }

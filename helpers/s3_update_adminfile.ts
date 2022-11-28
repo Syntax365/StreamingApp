@@ -24,7 +24,7 @@ export default async function handler(hash: string) {
   const { Body } = await s3Client.send(getCommand);
   const bodyContents = await streamToString(Body as Readable);
   const urlJSON = JSON.parse(bodyContents);
-  urlJSON.data.push(filename);
+  urlJSON.data.unshift(filename);
 
   const uploadCommand = new PutObjectCommand({
     Bucket: process.env.S3_BUCKET_NAME,
