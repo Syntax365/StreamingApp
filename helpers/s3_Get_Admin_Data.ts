@@ -18,9 +18,13 @@ export default async function handler() {
   const { Body } = await s3Client.send(getCommand);
   const bodyContents = await streamToString(Body as Readable);
   const urlJSON = JSON.parse(bodyContents);
+
+  urlJSON.data.length = 18;
+
   urlJSON.data = urlJSON.data.map((hash: string) => {
     return process.env.S3_BUCKET_BASE_URL + hash;
   });
+
   return urlJSON;
 }
 
