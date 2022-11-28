@@ -1,13 +1,10 @@
-import { useState } from "react";
-
 export default function Image({ ...props }) {
-  const [view, setView] = useState({});
-
   return (
     <img
+      alt={"Computer Generated Image"}
       className={props.className}
-      height="256px"
-      width="256px"
+      height={256}
+      width={256}
       src={props.src}
     />
   );

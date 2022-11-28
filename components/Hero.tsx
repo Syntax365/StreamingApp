@@ -1,9 +1,7 @@
 import { useState } from "react";
 import Image from "./Image";
 
-export default function hero() {
-  const [isFetching, setIsFetching] = useState(false);
-  const [errorStatus, setErrorStatus] = useState(false);
+export default function Hero() {
   const [imageSrc, setImageSrc] = useState("");
 
   const submitImage = async (imageString: FormDataEntryValue) => {
@@ -17,11 +15,9 @@ export default function hero() {
       body: JSON.stringify(body),
     });
 
-    const { imageURL, error } = await response.json();
+    const { imageURL } = await response.json();
 
-    console.log(imageURL);
     setImageSrc(imageURL);
-    setErrorStatus(error);
   };
 
   return (
