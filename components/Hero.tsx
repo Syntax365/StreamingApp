@@ -1,10 +1,15 @@
 import { useState } from "react";
-import Image from "./Image";
+import Image from "next/image";
+import totoroPlaceholder from "../public/totoro_hero_image.png";
+import { LoadingSpinner } from "./LoadingSpinner";
 
 export default function Hero() {
-  const [imageSrc, setImageSrc] = useState("");
+  const [imageSrc, setImageSrc] = useState(totoroPlaceholder);
+  const [isLoadingImage, setIsLoadingImage] = useState(false);
 
   const submitImage = async (imageString: FormDataEntryValue) => {
+    setIsLoadingImage(true);
+
     const body = { imageString: imageString };
 
     const response = await window.fetch("/api/getImages", {
@@ -18,11 +23,12 @@ export default function Hero() {
     const { imageURL } = await response.json();
 
     setImageSrc(imageURL);
+    setIsLoadingImage(false);
   };
 
   return (
     <>
-      <div className="h-[80vh] max-h-[300px] md:max-h-[450px] lg:max-h-[650px] z-10 w-full flex justify-center ">
+      <div className="h-[80vh] max-h-[475px] md:max-h-[450px] lg:max-h-[650px] z-10 w-full flex justify-center ">
         <div className="m-auto">
           <h1 className={"text-5xl font-bold pb-8 text-center text-white"}>
             Generate New Images
@@ -32,10 +38,12 @@ export default function Hero() {
             id="form"
             onSubmit={(event) => {
               event.preventDefault();
-              const formData = new FormData(event.target as HTMLFormElement);
-              const formProps = Object.fromEntries(formData);
-              if (formProps && formProps.imageString) {
-                submitImage(formProps.imageString);
+              if (!!!isLoadingImage) {
+                const formData = new FormData(event.target as HTMLFormElement);
+                const formProps = Object.fromEntries(formData);
+                if (formProps && formProps.imageString) {
+                  submitImage(formProps.imageString);
+                }
               }
             }}
           >
@@ -44,7 +52,7 @@ export default function Hero() {
               type="search"
               id="query"
               name="imageString"
-              placeholder="Iridescent Cows jumping over..."
+              placeholder="My Neighbor Totoro standing..."
               aria-label="Generate Images Courtesy of DOLL-E 2.0 AI"
             />
             <button>
@@ -56,11 +64,23 @@ export default function Hero() {
               </svg>
             </button>
           </form>
-          {imageSrc && (
-            <div className={"flex justify-center py-4"}>
-              <Image className="rounded-xl" src={imageSrc} />
-            </div>
-          )}
+
+          <div className={"flex justify-center py-6"}>
+            {!!!isLoadingImage ? (
+              <Image
+                className="rounded-xl"
+                width="256"
+                height="256"
+                src={imageSrc}
+                priority
+                alt="Search Result Image"
+              />
+            ) : (
+              <div className={"h-[256px] w-[256px]"}>
+                <LoadingSpinner />
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </>

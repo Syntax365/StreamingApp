@@ -17,7 +17,7 @@ const openai = new OpenAIApi(configuration);
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>,
+  res: NextApiResponse<Data>
 ) {
   if (
     process.env.ENABLE_IMAGE_GENERATION === "true" &&
@@ -36,12 +36,12 @@ export default function handler(
 
 const generateImage = async (
   imageString: string,
-  res: NextApiResponse<Data>,
+  res: NextApiResponse<Data>
 ) => {
   const imageData = await openai.createImage({
     prompt: imageString,
     n: 1,
-    size: "256x256",
+    size: "1024x1024",
     response_format: "b64_json",
   });
 
