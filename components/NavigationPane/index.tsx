@@ -10,7 +10,7 @@ import SocialLinks from "../SocialLinks";
 import upChevron from "../../public/images/upChevron.svg";
 import createNewSVG from "../../public/images/createImage.svg";
 import collectionsSVG from "../../public/images/collectionsImage.svg";
-import { useState } from "react";
+import { useState, Suspense } from "react";
 
 export const NavigationPane = (props: any) => {
   const isMedium = useIsMedium();
@@ -46,14 +46,14 @@ export const NavigationPane = (props: any) => {
   };
 
   return (
-    <>
+    <Suspense>
       {isMedium ? (
         <motion.div
           onClick={toggleMobileMenue}
           className="w-full z-10  text-white flex text-center rounded-t-lg bottom-0 fixed"
           style={{ backgroundColor: "#301934" }}
           initial={{ height: "50px" }}
-          animate={isMobileOpen ? { height: "auto" } : { height: "50px" }}
+          transition={isMobileOpen ? { height: "auto" } : { height: "50px" }}
         >
           <div className="w-full overflow-y-hidden items-center">
             <div className="w-full items-center flex flex-col">
@@ -87,6 +87,6 @@ export const NavigationPane = (props: any) => {
           </div>
         </div>
       )}
-    </>
+    </Suspense>
   );
 };
