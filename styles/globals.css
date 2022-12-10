@@ -76,3 +76,7 @@ input {
 main {
   min-height: 100vh;
 }
+
+.open-drawer {
+  height: 320px;
+}

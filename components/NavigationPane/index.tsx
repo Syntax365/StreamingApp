@@ -53,7 +53,7 @@ export const NavigationPane = (props: any) => {
           className="w-full z-10  text-white flex text-center rounded-t-lg bottom-0 fixed"
           style={{ backgroundColor: "#301934" }}
           initial={{ height: "50px" }}
-          transition={isMobileOpen ? { height: "auto" } : { height: "50px" }}
+          animate={isMobileOpen ? { height: "320px" } : {}}
         >
           <div className="w-full overflow-y-hidden items-center">
             <div className="w-full items-center flex flex-col">
