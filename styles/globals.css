@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@media (max-width: 480px) {
+  .side-nav {
+    width: 40px;
+  }
+}
+
 html,
 body {
   padding: 0;
@@ -65,4 +71,8 @@ input {
   overflow: hidden;
   transform: skewY(8deg);
   transform-origin: 100%;
+}
+
+main {
+  min-height: 100vh;
 }

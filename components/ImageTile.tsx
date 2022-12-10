@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import Image from "./Image";
 
 export default function ImageTile() {
-  const [imageURLArr, setImageURLArr] = useState([]);
   const [hasReq, setHasReq] = useState(false);
 
   async function fetchImageTiles() {
@@ -16,8 +15,8 @@ export default function ImageTile() {
     });
 
     const { data } = await response.json();
-
-    setImageURLArr(data);
+    const payload = generateImages(data);
+    setImages(payload);
   }
 
   useEffect(() => {
@@ -27,22 +26,31 @@ export default function ImageTile() {
     }
   }, []);
 
-  const generateImages = () => {
+  const generateImages = (imageURLArray: []) => {
     const imageArray = [] as Array<any>;
-    imageURLArr.forEach((imageURL, index) => {
+    imageURLArray.forEach((imageURL, index) => {
       imageArray.push(
-        <Image className="flex p-2" key={index} src={imageURL} />,
+        <Image
+          className="flex m-2 rounded-xl border"
+          key={index}
+          src={imageURL}
+        />,
       );
     });
 
     return imageArray;
   };
 
-  return (
-    <>
-      <div className="w-full flex justify-center flex-wrap">
-        {generateImages()}
-      </div>
-    </>
-  );
+  const placeHolderImages = () => {
+    const imageArray = [];
+    for (let i = 0; i < 40; i++) {
+      imageArray.push(<Image className="flex m-2 rounded-xl border" key={i} />);
+    }
+
+    return imageArray;
+  };
+
+  const [images, setImages] = useState(placeHolderImages());
+
+  return <div className="w-full flex justify-center flex-wrap">{images}</div>;
 }
