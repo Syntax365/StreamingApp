@@ -13,6 +13,7 @@ const SocialLinks: React.FC = () => {
       <ul className="list-reset flex justify-center flex-wrap py-2">
         <li className="mx-3">
           <a
+            rel="noreferrer"
             target="_blank"
             href="https://www.facebook.com/tyler.prill.5/"
             className="text-gray-700 hover:text-gray-800"
@@ -24,6 +25,7 @@ const SocialLinks: React.FC = () => {
         </li>
         <li className="mr-3">
           <a
+            rel="noreferrer"
             target="_blank"
             href="https://twitter.com/PrillTyler"
             className="text-gray-700 hover:text-gray-800"
@@ -35,6 +37,7 @@ const SocialLinks: React.FC = () => {
         </li>
         <li className="mr-3">
           <a
+            rel="noreferrer"
             target="_blank"
             href="https://www.linkedin.com/in/tyler-prill/"
             className="text-gray-700 hover:text-gray-800"
@@ -46,6 +49,7 @@ const SocialLinks: React.FC = () => {
         </li>
         <li className="mr-3">
           <a
+            rel="noreferrer"
             target="_blank"
             href="https://github.com/tylerprill-rhdc"
             className="text-gray-700 hover:text-gray-800"

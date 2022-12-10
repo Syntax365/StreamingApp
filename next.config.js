@@ -7,7 +7,6 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "prilltechimages.s3.us-east-2.amazonaws.com",
-        port: "",
         pathname: "/**",
       },
     ],
