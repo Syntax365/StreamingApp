@@ -54,8 +54,8 @@ export const NavigationPane = (props: any) => {
           style={{ backgroundColor: "#301934" }}
           initial={{ height: "50px" }}
           transition={{
-            y: { type: "spring", stiffness: 100 },
-            duration: 0.4,
+            y: { type: "spring" },
+            duration: 0.25,
             delay: 0.1,
           }}
           animate={isMobileOpen ? { height: "320px" } : {}}
