@@ -10,8 +10,8 @@ export const Link = (props: any) => {
       href={href}
       whileHover={{
         backgroundColor: "#8d4585",
-        scale: 1.02,
-        transition: { duration: 0.15 },
+        // scale: 1.02,
+        // transition: { duration: 0.15 },
       }}
       whileTap={{ scale: 0.9 }}
     >

@@ -24,7 +24,7 @@ export const NavigationPane = (props: any) => {
       </li>
       <li>
         <Link
-          href="/create-image"
+          href="/createimage"
           imgSrc={createNewSVG}
           alt="Create Image Icon"
           text="Create New"
