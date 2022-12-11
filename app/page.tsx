@@ -18,7 +18,7 @@ const WelcomeCard = (props: any) => {
       <motion.div
         whileHover={{ scale: 1.04 }}
         transition={{ duration: 0.2 }}
-        className="border-2 border-purple-300 p-4 rounded-xl text-left text-wrap m-4 max-w-[350px] shadow-lg h-auto md:h-32"
+        className="border-2 border-purple-300 p-4 rounded-xl text-left text-wrap my-4 md:mx-4 max-w-[350px] shadow-lg h-auto md:h-32"
       >
         {children}
       </motion.div>
@@ -29,7 +29,7 @@ const WelcomeCard = (props: any) => {
 export default function WelcomePage() {
   return (
     <div className={styles.container}>
-      <main className={styles.main}>
+      <main className={` ${styles.main}`}>
         <h1 className={styles.title}>
           Welcome to <span className={"animated_rainbow_1"}>Prill.io</span>
         </h1>
