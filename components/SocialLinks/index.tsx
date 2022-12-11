@@ -11,7 +11,7 @@ const SocialLinks: React.FC = () => {
   return (
     <div className="md:border-t md:border-purple-100 py-4 mt-4 mx-3">
       <ul className="list-reset flex justify-center flex-wrap py-2">
-        <li className="mx-3">
+        <li className="mx-4">
           <a
             rel="noreferrer"
             target="_blank"
@@ -23,7 +23,7 @@ const SocialLinks: React.FC = () => {
             </i>
           </a>
         </li>
-        <li className="mr-3">
+        <li className="mr-4">
           <a
             rel="noreferrer"
             target="_blank"
@@ -35,7 +35,7 @@ const SocialLinks: React.FC = () => {
             </i>
           </a>
         </li>
-        <li className="mr-3">
+        <li className="mr-4">
           <a
             rel="noreferrer"
             target="_blank"
@@ -47,7 +47,7 @@ const SocialLinks: React.FC = () => {
             </i>
           </a>
         </li>
-        <li className="mr-3">
+        <li className="mr-4">
           <a
             rel="noreferrer"
             target="_blank"
