@@ -67,7 +67,7 @@ export default function WelcomePage() {
                     className="text-2xl mb-2 flex flex-grow"
                     style={{ textAlign: "left" }}
                   >
-                    Image Collections
+                    Collections
                   </h2>
                   <img
                     height="28px"

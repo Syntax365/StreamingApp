@@ -3,7 +3,8 @@
 }
 
 .main {
-  min-height: 100vh;
+  height: 100vh;
+  max-height: 100%;
   padding: 4rem 0;
   flex: 1;
   display: flex;
@@ -11,22 +12,6 @@
   justify-content: center;
   align-items: center;
 }
-/* 
-.footer {
-  display: flex;
-  flex: 1;
-  padding: 2rem 0;
-  border-top: 1px solid #eaeaea;
-  justify-content: center;
-  align-items: center;
-}
-
-.footer a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
-} */
 
 .title {
   margin: 0;
