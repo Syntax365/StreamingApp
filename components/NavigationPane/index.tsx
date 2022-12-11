@@ -74,7 +74,7 @@ export const NavigationPane = (props: any) => {
         </motion.div>
       ) : (
         <div
-          className="sticky top-0"
+          className="top-0 hidden md:block sticky"
           style={{
             backgroundColor: "#301934",
             height: "100%",
