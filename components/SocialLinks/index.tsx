@@ -9,7 +9,7 @@ import Image from "next/image";
 
 const SocialLinks: React.FC = () => {
   return (
-    <div className="border-t border-purple-100 py-4 mt-4 mx-3">
+    <div className="md:border-t md:border-purple-100 py-4 mt-4 mx-3">
       <ul className="list-reset flex justify-center flex-wrap py-2">
         <li className="mx-3">
           <a
