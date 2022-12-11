@@ -1,18 +1,17 @@
 "use client";
 
-import Image from "next/image";
 import styles from "./page.module.css";
 import { motion } from "framer-motion";
-
-import startIcon from "../public/icons/start_icon.svg";
+import { useEffect } from "react";
 
 const WelcomeCard = (props: any) => {
   const { children, href, loadSequence } = props;
+
   return (
     <motion.a
       href={href}
       initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
+      animate={{ opacity: 1, y: 30 }}
       transition={{ delay: 0.35 * loadSequence }}
     >
       <motion.div
@@ -26,16 +25,33 @@ const WelcomeCard = (props: any) => {
   );
 };
 
+const setRootHeight = (windowHeight: number) => {
+  document.documentElement.style.setProperty(
+    "--viewHeight",
+    `${windowHeight - 80}px`,
+  );
+};
+
 export default function WelcomePage() {
+  useEffect(() => {
+    const windowHeight = window.innerHeight;
+
+    if (windowHeight) {
+      setRootHeight(windowHeight);
+    }
+  }, []);
+
   return (
     <div className={styles.container}>
       <main className={` ${styles.main}`}>
-        <h1 className={styles.title}>
-          Welcome to <span className={"animated_rainbow_1"}>Prill.io</span>
-        </h1>
-        <p className={`pt-1 pb-3 ${styles.description}`}>
-          Imagine. Innovate. Engineer.
-        </p>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1, y: 30 }}>
+          <h1 className={styles.title}>
+            Welcome to <span className={"animated_rainbow_1"}>Prill.io</span>
+          </h1>
+          <p className={`pt-1 pb-3 ${styles.description}`}>
+            Imagine. Innovate. Engineer.
+          </p>
+        </motion.div>
 
         <div id="welcome-cards" className={"flex flex-col"}>
           <div className={"flex flex-wrap justify-center"}>
