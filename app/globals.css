@@ -45,7 +45,7 @@ a {
     #54155e,
     #411149
   );
-  -webkit-animation: animatedBackground_a 25s linear infinite;
+  -webkit-animation: animatedBackground_a 25s ease-in-out infinite;
   -webkit-background-clip: text;
   -webkit-text-fill-color: #0000;
   background-clip: text;

@@ -1,30 +1,87 @@
+"use client";
+
 import Image from "next/image";
 import styles from "./page.module.css";
+import { motion } from "framer-motion";
 
-import downloadIcon from "../public/icons/download_item.svg";
+import startIcon from "../public/icons/start_icon.svg";
 
-export default function Home() {
+const WelcomeCard = (props: any) => {
+  const { children, href, loadSequence } = props;
+  return (
+    <motion.a
+      href={href}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.35 * loadSequence }}
+    >
+      <motion.div
+        whileHover={{ scale: 1.04 }}
+        transition={{ duration: 0.2 }}
+        className="border-2 border-purple-300 p-4 rounded-xl text-left text-wrap m-4 max-w-[350px] shadow-lg h-auto md:h-32"
+      >
+        {children}
+      </motion.div>
+    </motion.a>
+  );
+};
+
+export default function WelcomePage() {
   return (
     <div className={styles.container}>
       <main className={styles.main}>
         <h1 className={styles.title}>
           Welcome to <span className={"animated_rainbow_1"}>Prill.io</span>
         </h1>
-        <br></br>
-        <div className={styles.grid}>
-          <a href="https://beta.nextjs.org/docs" className={styles.card}>
-            <h2>Continue To App &rarr;</h2>
-            <p>Generate New Images with Doll-E 2.0</p>
-          </a>
+        <p className={`pt-1 pb-3 ${styles.description}`}>
+          Imagine. Innovate. Engineer.
+        </p>
 
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <div className="flex flex-row">
-              <h2>Download Resume</h2>
-            </div>
-          </a>
+        <div id="welcome-cards" className={"flex flex-col"}>
+          <div className={"flex flex-wrap justify-center"}>
+            <WelcomeCard href="/createimage" loadSequence={1}>
+              <>
+                <div className="flex flex-row">
+                  <h2
+                    className="text-2xl mb-2 flex flex-grow"
+                    style={{ textAlign: "left" }}
+                  >
+                    Generate Images
+                  </h2>
+                  <img
+                    height="28px"
+                    width="28px"
+                    src={"/icons/start_icon.svg"}
+                  />
+                </div>
+                <p>
+                  Create original, realistic images and art with DALL-E 2's
+                  latest release.
+                </p>
+              </>
+            </WelcomeCard>
+            <WelcomeCard href="/collections" loadSequence={2}>
+              <>
+                <div className="flex flex-row">
+                  <h2
+                    className="text-2xl mb-2 flex flex-grow"
+                    style={{ textAlign: "left" }}
+                  >
+                    Image Collections
+                  </h2>
+                  <img
+                    height="28px"
+                    width="28px"
+                    src={"/icons/start_icon.svg"}
+                  />
+                </div>
+                <p>
+                  View the most recent creations and promps from your peers and
+                  collegues.
+                </p>
+              </>
+            </WelcomeCard>
+          </div>
         </div>
       </main>
     </div>
