@@ -8,7 +8,7 @@ export default function Home() {
     <div className={styles.container}>
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <span>Prill.io</span>
+          Welcome to <span className={"animated_rainbow_1"}>Prill.io</span>
         </h1>
         <br></br>
         <div className={styles.grid}>

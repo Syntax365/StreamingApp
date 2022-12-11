@@ -28,3 +28,34 @@ a {
     background: black;
   }
 } */
+
+.animated_rainbow_1 {
+  font-family: Arial Black, Gadget, sans-serif;
+  background-image: -webkit-linear-gradient(
+    right,
+    #411149,
+    #54155e,
+    #661a72,
+    #791f87,
+    #8c249c,
+    #9e29b0,
+    #8c249c,
+    #791f87,
+    #661a72,
+    #54155e,
+    #411149
+  );
+  -webkit-animation: animatedBackground_a 25s linear infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: #0000;
+  background-clip: text;
+}
+
+@keyframes animatedBackground_a {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -600px 0;
+  }
+}
