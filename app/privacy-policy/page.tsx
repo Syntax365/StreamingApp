@@ -198,6 +198,7 @@ export default function PrivacyPolicy() {
           encourage you to contact us immediately and we will do our best
           efforts to promptly remove such information from our records.
         </p>
+        <div className="h-[80px] md:hidden"></div>
       </div>
     </div>
   );
