@@ -24,8 +24,8 @@ export default function Image({ ...props }) {
     <NextImage
       alt={"Computer Generated Image"}
       className={props.className}
-      height={256}
-      width={256}
+      height={props.height || 256}
+      width={props.height || 256}
       src={
         props.src || `data:image/svg+xml;base64,${toBase64(shimmer(256, 256))}`
       }

@@ -34,11 +34,14 @@ const setRootHeight = (windowHeight: number) => {
 
 export default function WelcomePage() {
   useEffect(() => {
-    const windowHeight = window.innerHeight;
-
-    if (windowHeight) {
-      setRootHeight(windowHeight);
-    }
+    let windowHeight = window.innerHeight;
+    setRootHeight(windowHeight);
+    window.onresize = () => {
+      windowHeight = window.innerHeight;
+      if (windowHeight) {
+        setRootHeight(windowHeight);
+      }
+    };
   }, []);
 
   return (
