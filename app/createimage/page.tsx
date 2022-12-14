@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { LoginCTA } from "../../components/LoginCTA";
 import { ImageCard } from "../../components/ImageCard";
-import { useIsMedium } from "../../hooks/mediaQuery";
+import { useMediaQuery } from "../../hooks/mediaQuery";
 
 const setRootHeight = (windowHeight: number) => {
   document.documentElement.style.setProperty(
@@ -15,21 +15,50 @@ const setRootHeight = (windowHeight: number) => {
   );
 };
 
+const removeRootHeight = (): void => {
+  document.documentElement.style.setProperty("--viewHeight", `null`);
+};
+
+const handleResize = (): void => {
+  const windowHeight = window.innerHeight;
+  if (windowHeight) {
+    setRootHeight(windowHeight);
+  }
+};
+
 export default function Home() {
+  const isSmall = useMediaQuery("(min-width: 480px)");
+  const isMediumLower = useMediaQuery("(min-width: 678px)");
+  const isMediumUpper = useMediaQuery("(min-width: 768px)");
+  const isLarge = useMediaQuery("(min-width: 945px)");
+
+  const isTall = useMediaQuery("(min-height: 950px)");
+
+  const shouldStack =
+    !isSmall ||
+    (isSmall && !isMediumLower) ||
+    (isSmall && !isLarge && isMediumLower && isMediumUpper);
+
+  if (!shouldStack) console.log("Should NOT Stack!");
+
+  let isTallClasses = isTall ? styles.isTallMain : styles.isShortMain;
+  const stackClasses = shouldStack ? "flex-col" : "flex-row-reverse";
+
   useEffect(() => {
     let windowHeight = window.innerHeight;
-    setRootHeight(windowHeight);
-    window.onresize = () => {
-      windowHeight = window.innerHeight;
-      if (windowHeight) {
-        setRootHeight(windowHeight);
-      }
-    };
-  }, []);
+
+    if (isTall) {
+      setRootHeight(windowHeight);
+      window.addEventListener("resize", handleResize);
+    } else {
+      window.removeEventListener("resize", handleResize);
+      removeRootHeight();
+    }
+  }, [isTall]);
 
   return (
     <div>
-      <main className={`m-3 ${styles.main}`}>
+      <main className={`m-3 ${isTallClasses}`}>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1, y: 30 }}
@@ -41,18 +70,14 @@ export default function Home() {
           <p className={`pb-2 md:pb-4 ${styles.description}`}>
             Generate new images with the click of a button.
           </p>
-          <div
-            className={
-              "flex flex-col justify-center items-center md:flex-row-reverse"
-            }
-          >
+          <div className={`flex justify-center items-center ${stackClasses}`}>
             <div className={"p-2"} />
-            <div className={"flex justify-center pb-4 md:pb-0"}>
+            <div className={"flex justify-center pb-4"}>
               <ImageCard />
             </div>
             <div
               className={
-                "flex flex-col w-full justify-center items-center md:items-start md:justify-start md:mr-4 h-full"
+                "flex flex-col w-full justify-center items-center md:items-start md:justify-start mr-4 h-full"
               }
             >
               <textarea
@@ -78,6 +103,7 @@ export default function Home() {
             </div>
           </div>
         </motion.div>
+        <div className="h-[120px] md:hidden"></div>
       </main>
     </div>
   );

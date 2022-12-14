@@ -1,6 +1,11 @@
-.main {
-  height: var(--viewHeight);
+.isShortMain {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
+.isTallMain {
+  height: var(--viewHeight);
   padding: 4rem 0;
   flex: 1;
   display: flex;
@@ -29,6 +34,10 @@
 .description {
   line-height: 1.5;
   font-size: 1.5rem;
+}
+
+.flex-row-reverse {
+  flex-direction: row-reverse;
 }
 
 /* 
