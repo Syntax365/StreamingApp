@@ -42,7 +42,15 @@ export function ImageCard(props: any) {
       <div className="pt-2">
         <p className="text-left flex flex-col">
           <span style={{ fontWeight: "500" }}>Prompt:</span>
-          <i className="w-[256px]">
+          <i
+            className="w-[256px] break-words"
+            style={{
+              display: "-webkit-box",
+              WebkitLineClamp: "2",
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+            }}
+          >
             {prompt ||
               "My Neighbor Totoro standing in the rain holding an umbrella, digital art."}
           </i>
