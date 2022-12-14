@@ -39,8 +39,6 @@ export default function Home() {
     (isSmall && !isMediumLower) ||
     (isSmall && !isLarge && isMediumLower && isMediumUpper);
 
-  if (!shouldStack) console.log("Should NOT Stack!");
-
   let isTallClasses = isTall ? styles.isTallMain : styles.isShortMain;
   const stackClasses = shouldStack ? "flex-col" : "flex-row-reverse";
 
@@ -71,30 +69,32 @@ export default function Home() {
             Generate new images with the click of a button.
           </p>
           <div className={`flex justify-center items-center ${stackClasses}`}>
-            <div className={"p-2"} />
-            <div className={"flex justify-center pb-4"}>
+            <div className={`flex justify-center ${shouldStack ? "pb-4" : ""}`}>
               <ImageCard />
             </div>
             <div
-              className={
-                "flex flex-col w-full justify-center items-center md:items-start md:justify-start mr-4 h-full"
-              }
+              className={`flex flex-col w-full justify-center items-center h-full ${
+                shouldStack ? "" : "mr-4 justify-start items-start"
+              }`}
             >
               <textarea
                 id="subject"
                 name="subject"
                 placeholder="Example Prompt: My Neighbor Totoro standing in the rain holding an umbrella, digital art."
-                className={
-                  "w-[292px] h-[120px] md:w-full md:h-full border-purple-200 border-2 rounded-xl p-4"
-                }
+                className={`border-purple-200 border-2 rounded-xl p-4 ${
+                  shouldStack ? "w-[292px] h-[120px]" : "h-full w-full"
+                }`}
               />
               <div
-                className={
-                  "flex flex-row items-center pt-1 w-[292px] md:w-full"
-                }
+                className={`flex  items-center  ${
+                  shouldStack
+                    ? "flex-col  w-[292px] pt-3"
+                    : "flex-row w-full pt-2"
+                }`}
               >
                 <p
-                  className={`text-left text-sm text-gray-400 md:pr-2 md:min-w-[160px]`}
+                  className={`text-left text-sm text-gray-400
+                  ${shouldStack ? "pb-2" : "min-w-[150px] pr-2"}`}
                 >
                   Verify your identiy with your Google Account to proceed.
                 </p>
