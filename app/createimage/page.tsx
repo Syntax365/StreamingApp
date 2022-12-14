@@ -66,7 +66,6 @@ export default function Home() {
   const [src, setSrc] = useState("/totoro_hero_image.png");
 
   const login = () => {
-    console.log("Successful Log in");
     setIsAuthenticated(true);
   };
 
@@ -74,7 +73,7 @@ export default function Home() {
     event.preventDefault();
     if (isAuthenticated) {
       if (prompt) {
-        console.log("Submiting");
+        setSrc("fallback");
         setIsSubmitting(true);
 
         const body = { imageString: prompt };
