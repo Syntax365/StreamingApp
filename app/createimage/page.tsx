@@ -28,7 +28,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className={styles}>
+    <div>
       <main className={`m-3 ${styles.main}`}>
         <motion.div
           initial={{ opacity: 0 }}
