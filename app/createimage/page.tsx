@@ -44,7 +44,7 @@ export default function Home() {
     (isSmall && !isLarge && isMediumLower && isMediumUpper);
 
   const stackClasses = shouldStack ? "flex-col" : "flex-row-reverse";
-  let isTallClasses = isTall ? styles.isTallMain : styles.isShortMain;
+  const isTallClasses = isTall ? styles.isTallMain : styles.isShortMain;
 
   useEffect(() => {
     let windowHeight = window.innerHeight;
@@ -140,7 +140,7 @@ export default function Home() {
                 <div
                   className={`flex  items-center  ${
                     shouldStack
-                      ? "flex-col  w-[292px] pt-4"
+                      ? "flex-col-reverse w-[292px] pt-4"
                       : "flex-row w-full pt-4"
                   }`}
                 >
