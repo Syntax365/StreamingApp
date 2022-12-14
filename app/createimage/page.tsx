@@ -2,11 +2,13 @@
 
 import styles from "./page.module.css";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { LoginCTA } from "../../components/LoginCTA";
 import { ImageCard } from "../../components/ImageCard";
 import { useMediaQuery } from "../../hooks/mediaQuery";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import { clientId } from "../../components/LoginCTA/config";
 
 const setRootHeight = (windowHeight: number) => {
   document.documentElement.style.setProperty(
@@ -27,20 +29,22 @@ const handleResize = (): void => {
 };
 
 export default function Home() {
+  const clientID = clientId;
+
   const isSmall = useMediaQuery("(min-width: 480px)");
   const isMediumLower = useMediaQuery("(min-width: 678px)");
   const isMediumUpper = useMediaQuery("(min-width: 768px)");
   const isLarge = useMediaQuery("(min-width: 945px)");
 
-  const isTall = useMediaQuery("(min-height: 950px)");
+  const isTall = useMediaQuery("(min-height: 950px)") || isLarge;
 
   const shouldStack =
     !isSmall ||
     (isSmall && !isMediumLower) ||
     (isSmall && !isLarge && isMediumLower && isMediumUpper);
 
-  let isTallClasses = isTall ? styles.isTallMain : styles.isShortMain;
   const stackClasses = shouldStack ? "flex-col" : "flex-row-reverse";
+  let isTallClasses = isTall ? styles.isTallMain : styles.isShortMain;
 
   useEffect(() => {
     let windowHeight = window.innerHeight;
@@ -54,13 +58,52 @@ export default function Home() {
     }
   }, [isTall]);
 
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [prompt, setPrompt] = useState(
+    "My Neighbor Totoro standing in the rain holding an umbrella, digital art.",
+  );
+  const [src, setSrc] = useState("/totoro_hero_image.png");
+
+  const login = () => {
+    console.log("Successful Log in");
+    setIsAuthenticated(true);
+  };
+
+  const submit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (isAuthenticated) {
+      if (prompt) {
+        console.log("Submiting");
+        setIsSubmitting(true);
+
+        const body = { imageString: prompt };
+
+        const response = await window.fetch("/api/getImages", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json;charset=UTF-8",
+          },
+          body: JSON.stringify(body),
+        });
+
+        const { imageURL } = await response.json();
+
+        setSrc(imageURL);
+        console.log(imageURL);
+        setIsSubmitting(false);
+        console.log("Successful Submit");
+      }
+    }
+  };
+
   return (
     <div>
-      <main className={`m-3 ${isTallClasses}`}>
+      <main className={`m-3 flex items-center ${isTallClasses}`}>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1, y: 30 }}
-          className={"p-4 rounded-xl flex flex-col md:justify-center"}
+          className={"p-4 rounded-xl flex flex-col max-w-4xl"}
         >
           <h1 className={`pb-2 ${styles.title}`}>
             Images<span className={"animated_rainbow_1"}> Imagined</span>
@@ -70,36 +113,58 @@ export default function Home() {
           </p>
           <div className={`flex justify-center items-center ${stackClasses}`}>
             <div className={`flex justify-center ${shouldStack ? "pb-4" : ""}`}>
-              <ImageCard />
+              <ImageCard priority={true} prompt={prompt} src={src} />
             </div>
             <div
               className={`flex flex-col w-full justify-center items-center h-full ${
-                shouldStack ? "" : "mr-4 justify-start items-start"
+                shouldStack ? "" : "mr-4 justify-start items-start h-[368px]"
               }`}
             >
-              <textarea
-                id="subject"
-                name="subject"
-                placeholder="Example Prompt: My Neighbor Totoro standing in the rain holding an umbrella, digital art."
-                className={`border-purple-200 border-2 rounded-xl p-4 ${
-                  shouldStack ? "w-[292px] h-[120px]" : "h-full w-full"
-                }`}
-              />
-              <div
-                className={`flex  items-center  ${
-                  shouldStack
-                    ? "flex-col  w-[292px] pt-3"
-                    : "flex-row w-full pt-2"
-                }`}
+              <form
+                className={"flex flex-grow flex-col"}
+                onSubmit={(event) => {
+                  event.preventDefault();
+                  submit(event);
+                }}
               >
-                <p
-                  className={`text-left text-sm text-gray-400
-                  ${shouldStack ? "pb-2" : "min-w-[150px] pr-2"}`}
+                <textarea
+                  id="subject"
+                  name="subject"
+                  onChange={(event) => {
+                    setPrompt(event.target.value);
+                  }}
+                  placeholder="Example Prompt: My Neighbor Totoro standing in the rain holding an umbrella, digital art."
+                  className={`border-purple-300 border-2 rounded-xl p-4 ${
+                    shouldStack ? "w-[292px] h-[120px]" : "h-full w-[370px]"
+                  }`}
+                />
+                <div
+                  className={`flex  items-center  ${
+                    shouldStack
+                      ? "flex-col  w-[292px] pt-4"
+                      : "flex-row w-full pt-4"
+                  }`}
                 >
-                  Verify your identiy with your Google Account to proceed.
-                </p>
-                <LoginCTA />
-              </div>
+                  {!isAuthenticated && (
+                    <p
+                      className={`text-left text-sm text-gray-400 flex flex-grow
+                  ${shouldStack ? "pb-2" : "w-[150px] pr-2"}`}
+                    >
+                      {!isAuthenticated
+                        ? "Verify your identiy with your Google Account to proceed."
+                        : ""}
+                    </p>
+                  )}
+
+                  <GoogleOAuthProvider clientId={clientID}>
+                    <LoginCTA
+                      isStacked={shouldStack}
+                      login={login}
+                      isSubmitting={isSubmitting}
+                    />
+                  </GoogleOAuthProvider>
+                </div>
+              </form>
             </div>
           </div>
         </motion.div>
