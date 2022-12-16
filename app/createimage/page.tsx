@@ -32,9 +32,12 @@ export default function Home() {
   const clientID = clientId;
 
   const isSmall = useMediaQuery("(min-width: 480px)");
-  const isMediumLower = useMediaQuery("(min-width: 678px)");
-  const isMediumUpper = useMediaQuery("(min-width: 768px)");
-  const isLarge = useMediaQuery("(min-width: 945px)");
+
+  //Keep to use as a non-stacked media presence
+  const isMediumLower = useMediaQuery("(min-width: 740px)");
+  const isMediumUpper = useMediaQuery("(min-width: 740px)");
+
+  const isLarge = useMediaQuery("(min-width: 960px)");
 
   const isTall = useMediaQuery("(min-height: 950px)") || isLarge;
 
@@ -89,9 +92,7 @@ export default function Home() {
         const { imageURL } = await response.json();
 
         setSrc(imageURL);
-        console.log(imageURL);
         setIsSubmitting(false);
-        console.log("Successful Submit");
       }
     }
   };
