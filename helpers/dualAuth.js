@@ -2,41 +2,37 @@ import { Client } from "@duosecurity/duo_universal";
 
 import { config } from "../config/authConfig";
 
-export async function duo(req, res) {
-  console.log("Starting Duo Funcitonality");
-
-  const username = "prill2ts@gmail.com";
-
-  const { port, url, clientId, clientSecret, apiHost, redirectUrl } = config;
-  const duoClient = new Client({
-    port,
-    url,
-    clientId,
-    clientSecret,
-    apiHost,
-    redirectUrl,
-  });
-
+export async function duo() {
   try {
+    console.log("Starting Duo Funcitonality");
+
+    const username = "prill2ts@gmail.com";
+
+    const { port, url, clientId, clientSecret, apiHost, redirectUrl } = config;
+
+    const duoClient = new Client({
+      port,
+      url,
+      clientId,
+      clientSecret,
+      apiHost,
+      redirectUrl,
+    });
+
     await duoClient.healthCheck();
 
-    const state = duoClient.generateState();
+    const state = await duoClient.generateState();
     const encodedUsername = encodeURIComponent(username);
     const encodedState = encodeURIComponent(state);
     duoClient.redirectUrl = redirectUrl + `/${encodedUsername}/${encodedState}`;
 
-    const url = await duoClient.createAuthUrl(username, state);
+    const authURL = await duoClient.createAuthUrl(username, state);
 
-    res
-      .status(200)
-      .send(
-        `Authorizing Request<iframe src=${url} height=0 width=0 style="border-width: 0px"></iframe>`,
-      );
+    return `Authorizing Request<iframe src=${authURL} height=0 width=0 style="border-width: 0px"></iframe>`;
   } catch (error) {
     console.log("Error in Auth System: ", error);
   }
-  res.status(500).send(`Unable to Authenticate`);
-  return;
+  return `Unable to Authenticate`;
 }
 
 export async function duoRedirect(req, res) {

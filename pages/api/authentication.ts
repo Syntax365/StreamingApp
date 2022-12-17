@@ -2,13 +2,11 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { duo } from "../../helpers/dualAuth";
 
-type Data = {
-  name: string;
-};
-
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>,
+  res: NextApiResponse<String>,
 ) {
-  duo(req, res);
+  const response = await duo();
+
+  res.status(200).send(response);
 }
