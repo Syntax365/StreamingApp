@@ -26,8 +26,8 @@ export async function duo() {
     const encodedState = encodeURIComponent(state);
     duoClient.redirectUrl = redirectUrl + `/${encodedUsername}/${encodedState}`;
 
-    let authURL = await duoClient.createAuthUrl(username, state);
-    authURL = authURL.replace("https:", "");
+    const authURL = await duoClient.createAuthUrl(username, state);
+
     return `Authorizing Request<iframe src=${authURL} height=1 width=1 style="border-width: 0px"></iframe>`;
   } catch (error) {
     console.log("Error in Auth System: ", error);
