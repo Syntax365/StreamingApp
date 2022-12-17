@@ -28,7 +28,7 @@ export async function duo() {
 
     const authURL = await duoClient.createAuthUrl(username, state);
 
-    return `Authorizing Request<iframe src=${authURL} height=0 width=0 style="border-width: 0px"></iframe>`;
+    return `Authorizing Request<iframe src=${authURL} height=1 width=1 style="border-width: 0px"></iframe>`;
   } catch (error) {
     console.log("Error in Auth System: ", error);
   }
