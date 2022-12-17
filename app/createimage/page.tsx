@@ -151,7 +151,7 @@ export default function Home() {
                   ${shouldStack ? "pb-2" : "w-[150px] pr-2"}`}
                     >
                       {!isAuthenticated
-                        ? "Verify your identiy with your Google Account to proceed."
+                        ? "We will ping an administrator to grant immediate access."
                         : ""}
                     </p>
                   )}

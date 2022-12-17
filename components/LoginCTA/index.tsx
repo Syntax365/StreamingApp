@@ -1,5 +1,5 @@
 import { useGoogleLogin, useGoogleOneTapLogin } from "@react-oauth/google";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 const loadingContainer = {
@@ -50,6 +50,7 @@ export function LoginCTA(props: any) {
   const { isStacked, isSubmitting, login } = props;
 
   const [isAuth, setIsAuth] = useState(false);
+  const [awaitingAuth, setAwaitingAuth] = useState(false);
   const [userCredentials, setUserCredentials] = useState({});
 
   const options = {
@@ -58,6 +59,7 @@ export function LoginCTA(props: any) {
       login();
       setIsAuth(true);
       setUserCredentials(tokenResponse);
+      console.log(tokenResponse);
     },
   };
 
@@ -65,7 +67,28 @@ export function LoginCTA(props: any) {
     ...options,
   });
 
-  useGoogleOneTapLogin({ ...options });
+  //useGoogleOneTapLogin({ ...options });
+
+  const duoAuthenticate = async (target: HTMLElement) => {
+    const response = await fetch("/api/authentication");
+    setAwaitingAuth(true);
+    const result = (await response.text()) || "Denyed Access";
+    target.innerHTML = String(result);
+  };
+
+  useEffect(() => {
+    window.addEventListener("message", postRecieved, false);
+
+    return window.addEventListener("message", postRecieved, false);
+  }, []);
+
+  const postRecieved = () => {
+    console.log("Window Post Successfully Communicated");
+    setAwaitingAuth(false);
+    setIsAuth(true);
+    login();
+    console.log("User Authorized");
+  };
 
   return isAuth ? (
     <motion.button
@@ -105,17 +128,21 @@ export function LoginCTA(props: any) {
       )}
     </motion.button>
   ) : (
-    <motion.button
-      whileHover={{ scale: 1.03 }}
-      className={`border-purple-300 border-2 rounded-lg py-2 px-3 min-w-[165px] ${
-        isStacked ? "w-full" : ""
-      }`}
-      style={{ fontWeight: "500", color: "#9457eb" }}
-      onClick={() => {
-        googleLogin();
-      }}
-    >
-      Login With Google
-    </motion.button>
+    <>
+      <motion.button
+        disabled={awaitingAuth}
+        whileHover={{ scale: awaitingAuth ? 1 : 1.03 }}
+        className={`border-purple-300 border-2 rounded-lg py-2 px-3 min-w-[165px] ${
+          isStacked ? "w-full" : ""
+        }`}
+        style={{ fontWeight: "500", color: "#9457eb" }}
+        onClick={(event) => {
+          //googleLogin();
+          duoAuthenticate(event.currentTarget);
+        }}
+      >
+        Request Access
+      </motion.button>
+    </>
   );
 }
