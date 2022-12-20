@@ -137,8 +137,10 @@ export function LoginCTA(props: any) {
         }`}
         style={{ fontWeight: "500", color: "#9457eb" }}
         onClick={(event) => {
-          //googleLogin();
-          duoAuthenticate(event.currentTarget);
+          googleLogin();
+          //duoAuthenticate(event.currentTarget);
+          //setIsAuth(true);
+          //login();
         }}
       >
         Request Access
